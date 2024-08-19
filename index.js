@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const itemRoute = require('./routes/itemRoute');
+const userRoute = require('./routes/userRoute');
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/items', itemRoute);
+app.use('/api/users', userRoute);
 
 app.use('/', (req, res) => {
   return res.status(200).send('Welcome to Node.js programs');
