@@ -21,7 +21,7 @@ app.use(
       mongoUrl: process.env.MONGODB_URL,
       collectionName: 'sessions',
     }),
-    cookie: { secure: 'auto' },
+    cookie: { secure: false },
   })
 );
 app.use(
