@@ -34,11 +34,16 @@ app.use(
       _expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       originalMaxAge: 86400000,
       httpOnly: true,
-      secure: false, // Ubah ke true jika menggunakan HTTPS
-      sameSite: 'Lax', // Cobalah 'Lax' atau 'None' sesuai kebutuhan
+      secure: false,
+      sameSite: 'lax',
     },
   })
 );
+
+app.use((req, res, next) => {
+  console.log('Request Cookies:', req.cookies);
+  next();
+});
 
 app.use('/api/items', itemRoute);
 app.use('/api/users', userRoute);
