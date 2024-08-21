@@ -1,5 +1,6 @@
 const Item = require('../models/itemModel');
 const User = require('../models/userModel');
+const Warehouse = require('../models/warehouseModel');
 
 const index = async (req, res) => {
   try {
@@ -99,6 +100,13 @@ const updateStatus = async (req, res) => {
     const validStatuses = ['pending', 'approved', 'rejected'];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ message: 'Invalid status' });
+    }
+
+    if (status === 'approved') {
+      const warehouse = new Warehouse({
+        item_id: item._id,
+      });
+      await warehouse.save();
     }
 
     item.status = status;

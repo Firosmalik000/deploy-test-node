@@ -6,6 +6,7 @@ const userRoute = require('./routes/userRoute');
 const authRoute = require('./routes/authRoute');
 const Mongostore = require('connect-mongo');
 const session = require('express-session');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -21,6 +22,12 @@ app.use(
       collectionName: 'sessions',
     }),
     cookie: { secure: 'auto' },
+  })
+);
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:5173/',
   })
 );
 
