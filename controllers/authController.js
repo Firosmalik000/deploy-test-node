@@ -16,8 +16,7 @@ const login = async (req, res) => {
     }
 
     req.session.userId = user._id;
-    console.log('Session ID:', req.sessionID); // Log session ID
-    console.log('Cookie:', req.cookies); // Log cookies
+    console.log('Session after setting userId:', req.session); // Log session after setting userId
 
     const { _id, username, email, role } = user;
 

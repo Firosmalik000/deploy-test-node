@@ -11,23 +11,32 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-app.use(express.json());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: Mongostore.create({
-      mongoUrl: process.env.MONGODB_URL,
-      collectionName: 'sessions',
-    }),
-    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24, httpOnly: true, sameSite: 'None' },
-  })
-);
+
 app.use(
   cors({
     credentials: true,
     origin: ['http://localhost:5173', 'https://erp-frontend-react.vercel.app'],
+  })
+);
+
+app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true, // Ubah menjadi true
+    saveUninitialized: false, // Ubah menjadi false
+    store: Mongostore.create({
+      mongoUrl: process.env.MONGODB_URL,
+      collectionName: 'sessions',
+    }),
+    cookie: {
+      path: '/',
+      _expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      originalMaxAge: 86400000,
+      httpOnly: true,
+      secure: false, // Ubah ke true jika menggunakan HTTPS
+      sameSite: 'Lax', // Cobalah 'Lax' atau 'None' sesuai kebutuhan
+    },
   })
 );
 
