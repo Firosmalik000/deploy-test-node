@@ -16,6 +16,9 @@ const login = async (req, res) => {
     }
 
     req.session.userId = user._id;
+    console.log('Session ID:', req.sessionID); // Log session ID
+    console.log('Cookie:', req.cookies); // Log cookies
+
     const { _id, username, email, role } = user;
 
     return res.status(200).json({ user: { _id, username, email, role } });
@@ -33,6 +36,8 @@ const logout = (req, res) => {
 };
 
 const me = async (req, res) => {
+  console.log('Session UserID:', req.session.userId); // Log session user ID
+
   if (!req.session.userId) return res.status(401).json({ message: 'Unauthenticated' });
 
   try {

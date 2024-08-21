@@ -21,7 +21,7 @@ app.use(
       mongoUrl: process.env.MONGODB_URL,
       collectionName: 'sessions',
     }),
-    cookie: { secure: 'auto', maxAge: 1000 * 60 * 60 * 24, httpOnly: true },
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24, httpOnly: true },
   })
 );
 app.use(

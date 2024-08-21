@@ -1,6 +1,9 @@
 const User = require('../models/userModel');
 
 const VerifyUser = async (req, res, next) => {
+  console.log('Session ID:', req.sessionID); // Log session ID
+  console.log('Session UserID:', req.session.userId); // Log session user ID
+
   if (!req.session.userId) return res.status(401).json({ message: 'Unauthenticated' });
 
   try {
