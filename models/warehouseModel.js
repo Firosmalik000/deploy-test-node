@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const warehouseSchema = new mongoose.Schema({
   name: String,
   arrivalDate: Date,
-  condition: { type: String },
+  condition: String,
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   note: String,
-  item_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },
+  status_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Status' },
 });
 
-const warehouse = mongoose.model('Warehouse', warehouseSchema);
-module.exports = warehouse;
+const Warehouse = mongoose.model('Warehouse', warehouseSchema);
+module.exports = Warehouse;

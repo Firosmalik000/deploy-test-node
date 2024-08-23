@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const itemRoute = require('./routes/itemRoute');
 const userRoute = require('./routes/userRoute');
 const authRoute = require('./routes/authRoute');
+const warehouseRoute = require('./routes/warehouseRoute');
+const statusRoute = require('./routes/statusRoute');
 const Mongostore = require('connect-mongo');
 const session = require('express-session');
 const cors = require('cors');
@@ -23,8 +25,8 @@ app.use(express.json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: true, // Ubah menjadi true
-    saveUninitialized: false, // Ubah menjadi false
+    resave: true,
+    saveUninitialized: false,
     store: Mongostore.create({
       mongoUrl: process.env.MONGODB_URL,
       collectionName: 'sessions',
@@ -48,6 +50,8 @@ app.use((req, res, next) => {
 app.use('/api/items', itemRoute);
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/status', statusRoute);
+app.use('/api/warehouse', warehouseRoute);
 
 app.use('/', (req, res) => {
   return res.status(200).send('Welcome to Node.js programs');
