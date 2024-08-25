@@ -5,6 +5,7 @@ const itemRoute = require('./routes/itemRoute');
 const userRoute = require('./routes/userRoute');
 const authRoute = require('./routes/authRoute');
 const warehouseRoute = require('./routes/warehouseRoute');
+const reportRoute = require('./routes/reportRoute');
 const statusRoute = require('./routes/statusRoute');
 const Mongostore = require('connect-mongo');
 const session = require('express-session');
@@ -37,7 +38,7 @@ app.use(
       originalMaxAge: 86400000,
       httpOnly: true,
       secure: false,
-      sameSite: 'lax',
+      sameSite: 'none',
     },
   })
 );
@@ -52,6 +53,7 @@ app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/status', statusRoute);
 app.use('/api/warehouse', warehouseRoute);
+app.use('/api/report', reportRoute);
 
 app.use('/', (req, res) => {
   return res.status(200).send('Welcome to Node.js programs');

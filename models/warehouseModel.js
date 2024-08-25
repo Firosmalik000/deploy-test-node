@@ -4,8 +4,10 @@ const warehouseSchema = new mongoose.Schema({
   name: String,
   arrivalDate: Date,
   condition: String,
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  location: String,
+  code: String,
   note: String,
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   status_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Status' },
 });
 

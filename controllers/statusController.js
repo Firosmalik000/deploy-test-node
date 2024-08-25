@@ -12,7 +12,8 @@ const index = async (req, res) => {
           path: 'user_id',
           select: ['username', 'email'],
         },
-      });
+      })
+      .sort({ createdAt: -1 });
     res.status(200).json(status);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -35,7 +36,7 @@ const updateStatus = async (req, res) => {
     if (user.role !== 'admin') {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    console.log('role', user.role);
+    // console.log('role', user.role);
 
     const validStatuses = ['pending', 'approved', 'rejected'];
     if (!validStatuses.includes(status)) {
