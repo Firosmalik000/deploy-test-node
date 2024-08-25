@@ -37,7 +37,7 @@ app.use(
       _expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       originalMaxAge: 86400000,
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'none',
     },
   })
