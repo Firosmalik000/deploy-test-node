@@ -87,10 +87,41 @@ const deleteUsers = async (req, res) => {
   }
 };
 
+const impersonateUser = async (req, res) => {
+  console.log('current UserID:', req.session.userId); //
+  try {
+    // Cek apakah user yang sedang login adalah admin
+    const user = await User.findById(req.session.userId);
+    console.log('current user: ', user);
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    if (user.role !== 'admin') {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const targetUser = await User.findById(req.params.id);
+    console.log('target user: ', targetUser);
+    if (!targetUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Set session ke user yang diimpersonate
+    req.session.userId = targetUser._id;
+    console.log(`Admin is impersonating user with ID: ${targetUser._id}`);
+
+    const { _id, username, email, role } = targetUser;
+    return res.status(200).json({ message: 'Impersonation successful', user: { _id, username, email, role } });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 module.exports = {
   getUsers,
   getUsersById,
   createUsers,
   updateUser,
   deleteUsers,
+  impersonateUser,
 };
